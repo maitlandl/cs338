@@ -1,0 +1,4 @@
+Lane Maitland
+
+I completed all steps in the instructions (which were very clear, thank you!).
+I have a "VMware Fusion" application with "Kali" and "Metasploitable2". The status for both is "suspended".
