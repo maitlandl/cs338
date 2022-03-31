@@ -1,0 +1,41 @@
+Lane Maitland
+
+1] command: ifconfig
+- [IP address is after “inet”.]
+- [In output, “eth0” is first Ethernet interface, and “wlan0” is first wireless network interface.]
+- source: https://www.computerhope.com/unix/uifconfi.htm,
+https://www.java67.com/2012/12/unix-command-to-find-ip-address-from-hostname.html
+
+2] command: nslookup <host>
+- test: nslookup ns1.carleton.edu
+- source: https://www.java67.com/2012/12/unix-command-to-find-ip-address-from-hostname.html
+
+3] command: nslookup <ip>
+- test: nslookup 137.22.198.41
+- source: https://linuxhint.com/find-hostname-ip-linux/
+
+4] command: scp <username1@source_host:directory1/filename1> <username2@destination_host:directory2/filename2>
+- [username1 = kali, source_host = kali, username2 = maitlandl, destination_host = mantis.mathcs.carleton.edu, paths may vary]
+- source: https://kb.iu.edu/d/agye
+
+5] command: lsof -nP -iTCP:<port number> -sTCP:LISTEN
+- test: lsof -nP -iTCP:45623 -sTCP:LISTEN
+- source: https://linuxize.com/post/check-listening-ports-linux/
+
+6] command: lsof -nP -iTCP -sTCP:LISTEN
+- source: https://linuxize.com/post/check-listening-ports-linux/
+
+7] command: curl <url> -o <file name>
+- test: curl https://www.carleton.edu/student/ -o test_file
+- [I also entered “ls” and “cat test_file” to confirm that file was created and could be read.]
+- source: https://www.cyberciti.biz/faq/download-a-file-with-curl-on-linux-unix-command-line/
+
+8] command: curl -vos <server> 2>&1 >/dev/null | grep '<'
+- test: curl -vos https://www.carleton.edu/photos/ 2>&1 >/dev/null | grep '<'
+- [“<” begins lines corresponding to response headers]
+- source: https://www.baeldung.com/linux/curl-request-headers
+
+9] command: curl -vos <server> 2>&1 >/dev/null | grep '>'
+- test: curl -vos https://www.carleton.edu/photos/ 2>&1 >/dev/null | grep '>'
+- [“>” begins lines corresponding to request headers]
+- source: https://www.baeldung.com/linux/curl-request-headers
