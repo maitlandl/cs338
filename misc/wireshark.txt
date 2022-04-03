@@ -1,0 +1,57 @@
+Lane Maitland
+
+===== DAYTIME =====
+1] TCP 3-way handshake: [SYN], [SYN, ACK], [ACK]
+
+1	0.000000000	192.168.16.128	132.163.96.1	TCP	74	40264 → 13 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1 TSval=1433253783 TSecr=0 WS=128
+
+2	0.038463447	132.163.96.1	192.168.16.128	TCP	60	13 → 40264 [SYN, ACK] Seq=0 Ack=1 Win=64240 Len=0 MSS=1460
+
+3	0.040019956	192.168.16.128	132.163.96.1	TCP	54	40264 → 13 [ACK] Seq=1 Ack=1 Win=64240 Len=0
+
+2] The client uses port 40264. The client needs a port because there may be multiple interactions with the client (possibly between different servers) happening at the same time. In order for the client to keep these interactions separate, it runs them on different ports. The IP address of the client is used to get the packet to the computer, but the computer needs the port number to get the packet to the correct application for processing.
+
+3] The frame #4 contains the date and time.
+
+4	0.064235292	132.163.96.1	192.168.16.128	DAYTIME	105	DAYTIME Response
+
+4] The frame states that the daytime protocol is a response-type of 840 bits. The response begins with a new line, followed by 5 digits representing the “Modified Julian Date”, then the date (YY-MM-DD), then the time (HH:MM:SS), then 2 digits indicating whether the US is on standard time or daylight saving time (00 when standard, 50 when daylight saving), then 1 digit indicating “whether a leap second will be added or subtracted at midnight on the last day of the current month,” then 1 digit indicating the health of the server (0 if healthy, 1 if time may be incorrect up to 5 seconds), then the “number of milliseconds that NIST advances the time code to partially compensate for network delays,” then the label UTC(NIST), then an asterisk (on-time marker), then a newline.
+
+Frame 4: 105 bytes on wire (840 bits), 105 bytes captured (840 bits) on interface eth0, id 0
+…
+Daytime Protocol
+     Type: Response
+     Daytime: \n59672 22-04-03 18:40:16 50 0 0 323.8 UTC(NIST) * \n
+
+5] [SYN] represents “synchronization.” These packets initiate a connection between the client and server.
+
+6] [ACK] represents “acknowledgement.” These packets confirm that data/messages have been received. This includes confirming the initialization/termination ([SYN], [FIN]) requests. 
+
+7] [FIN] represents “finish.” These packets terminate a connection between the client and server.
+
+8] The client requested the termination of the TCP connection. The frame with “[FIN, ACK]” represents the message sent to request termination. Its source was the client (IP address 192.168.16.128, port 40264) and its destination was the server (IP address 132.163.96.1, port 13).
+
+5	0.064643626	192.168.16.128	132.163.96.1	TCP	54	40264 → 13 [FIN, ACK] Seq=1 Ack=53 Win=64188 Len=0
+
+sources] https://blogs.getcertifiedgetahead.com/server-ports-versus-client-ports/,
+https://www.nist.gov/pml/time-and-frequency-division/time-distribution/internet-time-service-its,
+https://www.howtouselinux.com/post/tcp-flags
+
+===== HTTP =====
+1] There were 2 TCP connections initiated (2 frames have [SYN]).
+
+2] The homepage was requested in frame #7.
+
+7	0.051632923	192.168.16.128	45.79.89.123	HTTP	395	GET /index.html HTTP/1.1
+
+3] The image was requested in frame #11.
+
+11	0.454802057	192.168.16.128	45.79.89.123	HTTP	364	GET /jeff_square_head.jpg HTTP/1.1
+
+===== QUESTIONS =====
+- Why are the homepage and image sent to different ports?
+- How does the client know that it needs to initiate 2 TCP connections before requesting the homepage and image?
+- There is another “GET” request (frame #19, GET /favicon.ico HTTP/1.1). Why does this not need its own port?
+- What does [TCP Keep-Alive] represent?
+- What does the other information in the “Info” section represent?
+- What is “Ethernet II”? Why are there multiple ethernets?
