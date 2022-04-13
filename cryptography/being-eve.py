@@ -61,10 +61,3 @@ for val in encrypted:
     message = message + chr(char_code)
 
 print("message: ", message)
-
-
-
-
-
-
-
