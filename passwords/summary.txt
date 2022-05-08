@@ -1,0 +1,60 @@
+Lane Maitland
+
+--- Part 1 ---
+Total time: 8.42 seconds
+Number of hashes computed: 267751 hashes
+Passwords cracked: 2805 passwords
+Time per hash computed: 3.145 * 10^{-5} seconds per hash
+Time per password cracked: 3.002 * 10^{-3} seconds per password
+Passwords cracked per number of hashes computed: 1.048 * 10^{-2} passwords per hash
+
+--- Part 2 ---
+Total time:
+    In my first attempt, the program died at 461.85 seconds. All of my other attempts took too long to wait for, even when only 10 hashes were computed.
+Number of hashes computed:
+    I do not know because the program died or did not finish running. I tried limiting the number of hashes to 1000000, 500000, 5000, 50, and even 10.
+    I expected that hashing 2 words concatenated would take longer than 1 word, but not to this extent.
+Passwords cracked:
+    0, the program died or did not finish running.
+Time per hash computed:
+    Again, unknown.
+Time per password cracked:
+    Again, unknown.
+Passwords cracked per number of hashes computed:
+    Again, 0.
+
+--- Part 3 ---
+Total time:
+    All of my attempts took too long to wait for.
+Number of hashes computed:
+    I do not know because the program did not finish running.
+Passwords cracked:
+    0, the program did not finish running.
+Time per hash computed:
+    Again, unknown.
+Time per password cracked:
+    Again, unknown.
+Passwords cracked per number of hashes computed:
+    Again, 0.
+
+--- Analysis ---
+- Did your time per hash computed change between phases? By what factor? Why?
+    I do not know by what factor, but parts 2 and 3 took significantly more time than part 1.
+    I would guess that more time would be needed per hash when hashing more characters, and parts 2 and 3 both required concatenation, so the strings were longer.
+- Did your time per password crack change between phases? By what factor? Why?
+    I do not know by what factor, but again, parts 2 and 3 took significantly more time than part 1.
+    I would guess that more time would be needed per password when more hashes need to be checked, and parts 2 and 3 would both require longer lists of hashed passwords to check through.
+- Suppose you wanted to precompute all the possible password hashes for each so you could just look up the password in a table indexed by the hash. How much memory would be required for each phase?
+    This is how I thought we should do this assignment??
+    There are 267751 words in the list.
+    For part 1, there would be 267751 hashes.
+    For part 2, there would be 267751*267751=7.169*10^{10} hashes.
+    For part 3, there are 2805 usernames.
+    If we assume that each has a different salt and a one-word password, then there would be 2805*267751=7.51*10^8 hashes.
+    If we assume that each has a different salt and a two-word password, then there would be 2805*267751*267751=2.011*10^{14} hashes.
+- Give 3-4 reasons we should store password hashes and not the passwords themselves. Think in terms of threats, who the attackers might be, etc.
+    If someone gains access to database, they cannot easily/immediately read passwords.
+    Even if someone obtains a hashed password (digest) and knows the hashing algorithm, it is very difficult to "reverse" and find what password produced that digest
+    (especially when they do not know that the password is one word from a given list).
+    A digest is a fixed length, so you will know how much memory you need to store a given number of hashed passwords because it will not depend on the size of the unhashed passwords.
+    Storing the hash of the concatentation of a salt and a password can be especially useful in protecting common passwords. People with the same password but different salts will have different digests.
