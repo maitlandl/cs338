@@ -1,13 +1,3 @@
-'''
-    conversions.py
-    Jeff Ondich, 6 May 2022
-
-    Shows how to compute a SHA-256 hash and manipulate the
-    relevant Python types.
-
-    Note that when you want to do a new hash, you need to
-    call hashlib.sha256() again to get a fresh sha256 object.
-'''
 # Lane Maitland
 # with code adapted from Jeff Ondich
 
